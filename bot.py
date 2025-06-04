@@ -88,7 +88,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     query = " ".join(context.args)
     if not query:
-        await update.message.reply_text("Напиши что искать, например:\n/поиск дедлайн")
+        await update.message.reply_text("Напиши, что искать, например:\n/search дедлайн")
         return
     matches = [h for h in history if query.lower() in h["text"].lower()]
     if not matches:
@@ -115,8 +115,8 @@ async def extract_todo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == "__main__":
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("резюме", summarize))
-    app.add_handler(CommandHandler("поиск", search))
+    app.add_handler(CommandHandler("summary", summarize))
+    app.add_handler(CommandHandler("search", search))
     app.add_handler(CommandHandler("todo", extract_todo))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
     app.add_handler(MessageHandler(filters.VOICE | filters.AUDIO, handle_voice))
